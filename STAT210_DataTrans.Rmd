@@ -1,0 +1,96 @@
+---
+title: "Ch. 5 Data Transformation"
+author: "Jerri Schorr"
+date: 09-31-2019
+output: github_document
+---
+
+```{r setup chunk, include=FALSE}
+library(tidyverse)
+library(nycflights13)
+```
+
+
+##### **Chapter 5**
+
+###### **5.1**
+
+* It is rare to get data exactly as you need it. 
+    + we will learn how to reorder the data and create new variables or summaries of the data
+    + we will use stats::filter() & stats::lag()
+    
+```{r}
+nycflights13::flights
+```
+
+* This data set is a **tibble** 
+    + it is a little different so that it works well with tidyverse
+    
+* 5 dplyr functions
+    + filter()
+    + arrange()
+    + select()
+    + mutate()
+    + summarise()
+    
+###### **5.2** 
+
+* Arguments and notation
+    + first argument is data frame
+    + all other arguments are what rows we want to filter out
+    + Example:
+    
+```{r}
+jan1 <- filter(flights, month == 1, day == 1)
+```
+    + we get all the data from january 1st
+    + we assigned this filtered data frame to jan1
+    
+* Exercises 
+
+```{r}
+filter(flights, arr_delay >= 2)
+filter(flights, dest == "IAH" | dest == "HOU")
+filter(flights, carrier == "UA" | carrier == "AA" | carrier == "DL")
+filter(flights, month == 7 | month == 8 | month == 9)
+
+
+```
+
+###### **5.3**
+
+* arrange is similar to filter but it changes order of rows instead of selecting them 
+
+* Exercises
+
+```{r}
+arrange(flights, is.na(month))
+arrange(flights, dep_delay)
+arrange(flights, desc(dep_delay))
+
+```
+
+###### **5.4**
+
+* select() will select columns
+
+###### **5.5**
+
+* add new variables with the muatate function
+
+    + you can refer to columns that you have just created
+    + transmute lets you keep new variable only
+    
+###### **5.6**
+
+* summarise makes the data frame a single row
+
+* we can use the **pipe** operator to combine multiple functions at once
+    + **%>%**
+    
+###### **5.7**
+
+* we can use the group function with mutate() and filter() as weel as the summarise() function
+
+
+
